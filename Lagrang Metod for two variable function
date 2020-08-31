@@ -1,0 +1,47 @@
+CLS:BEEP:SCREEN 0,0,0:COLOR 9,0
+INPUT N :IF N<1 THEN 20
+DIM X(N), Y(N), F(N,N), L(N), M(N), K(N,N)
+FOR I=0 TO N :READ X(I), Y(I) :NEXT I
+PRINT
+DATA 0,0,.524,.524,1,1
+FOR I=0 TO N
+FOR J=0 TO N
+READ F(I,J) :PRINT F(I,J)
+NEXT J
+PRINT
+NEXT I
+DATA 1,1,1,1.689,1.626,1.462,2.718,2.353,1.469
+PRINT "---------------------------------------"
+INPUT "x,y=?",X,Y
+PRINT "---------------------------------------"
+FOR I=0 TO N
+L(I)=1
+FOR J=0 TO N
+IF I=J THEN 220
+L(I)=L(I)*(X-X(J))/(X(I)-X(J))
+NEXT J
+NEXT I
+FOR I=0 TO N
+M(I)=1
+FOR J=0 TO N
+IF I=J THEN 290
+M(I)=M(I)*(Y-Y(J))/(Y(I)-Y(J))
+NEXT J
+NEXT I
+FOR I=0 TO N
+FOR J=0 TO N
+K(I,J)=L(I)*M(J)
+PRINT K(I,J);
+NEXT J
+PRINT
+NEXT I
+PRINT "---------------------------------------"
+FOR I=0 TO N
+FOR J=0 TO N
+F(I,J)=F(I,J)*K(I,J)
+PRINT F(I,J);
+S=S+F(I,J)
+NEXT I
+NEXT J
+PRINT
+PRINT "f(";X;",";Y;")";S
