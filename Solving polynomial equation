@@ -1,0 +1,46 @@
+" program for POLY.N ----------- "
+COLOR 12,1 :CLS :KEY OFF:BEEP
+INPUT "N=? AND EPSILON=E=?  " ,N,E
+DIM A(N+2) , B(N+2) , C(N+2)
+UU=N
+FOR I=1 TO N+1
+IF I=N+1 THEN 100
+READ A(I) : PRINT " (";A(I);""x^ ; N-I+1")";
+NEXT I
+ READ A(I) : PRINT A(I);"=0"
+ RANDOMIZE :CLS
+R =RND*10:S=RND*10
+FOR I=1 TO 12
+B(1)=A(1):B(2)=A(2)+R*B(1) : C(1)=B(1) : C(2)=B(2)+R*C(1)  
+FOR K=3 TO N+1
+B(K)= A(K)+R*B(K-1)+S*B(K-2)
+IF K=N+1 THEN 210
+C(K)= B(K)+R*C(K-1)+S*C(K-2)
+IF C(K)>10000 THEN 120
+NEXT K
+IF ABS(B(N))+ABS(B(N+1)) < E THEN 290
+M=(C(N-1)*C(N-1))-(C(N-2)*C(N))
+IF M>1E+10 OR M=0 THEN 120
+DR=((C(N-2)*B(N+1))-(B(N)*B(N-1)))/M
+DS=((C(N)*B(N))-(C(N-1)*B(N-1)))/M
+S=S+DS : R=R+DR
+IF I>10 THEN 120
+NEXT I
+D=R^2+4*S
+IF D<0 THEN 360
+X1=(-R-D^.5)/2  : X2=(-R+D^.5)/2
+PRINT "X1=";X1
+PRINT "X2=";X2
+GOTO 380
+PRINT
+PRINT "(";R/2;")+(";-ABS(D)^.5/2;"J)"
+PRINT "(";R/2;")+(";+ABS(D)^.5/2;"J)"
+N=N-2
+IF N=0 THEN END ELSE 400
+IF N=1 THEN :PRINT "X(";UU;")";-A(UU+1)/A(UU):END ELSE 410
+FOR J=1 TO N-1
+A(J)=B(J)
+NEXT J
+J=J+1
+GOTO 130
+DATA 1,-6,-3,18
