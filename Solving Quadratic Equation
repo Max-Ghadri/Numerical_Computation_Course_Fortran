@@ -1,0 +1,28 @@
+CLS : COLOR 5 , 0 
+PRINT " METHOD: RUNGE-KUTTA - Y'=F(X,Y) "
+INPUT "[N=",N : IF N,10 THEN N=10
+DIM X(N+1),Y(N+1),Z(N+1)
+INPUT "[a,b]",A,B
+IF A.B THEN SWAP A,B
+H=(B-A)/N
+X(0)=A
+FOR I=1 TO N
+X(I)=X(I-1)+H
+NEXT I
+DEF FNA(Z)= Z
+DEF FNA(X,Y,Z)=-(0*X+SIN(Y)+.1*Z)
+INPUT "y(0)=";Y(0)
+INPUT "z(0)=";Z(0)
+FOR I=1 TO N
+J1=H*FNA(Z(I-1))
+K1=H*FNB(X(I-1),Y(I-1),Z(I-1))
+J2=H*FNA(Z(I-1)+K1/2)
+K2=H*FNB(X(I-1)+H/2,Y(I-1)+J1/2,Z(I-1)+K1/2)
+J3=H*FNA(Z(I-1)+K2/2)
+K3=H*FNB(X(I-1)+H/2,Y(I-1)+J2/2,Z(I-1)+K2/2)
+J4=H*FNA(Z(I-1)+K3)
+K4=H*FNB(X(I-1)+H,Y(I-1)+J3,Z(I-1)+K3)
+Y(I)=Y(I-1)+(1/6)*(J1+2*J2+2*J3+J4)
+Z(I)=Z(I-1)+(1/6)*(K1+2*K2+2*K3+K4)
+PRINT "y(";I")=";Y(I)
+NEXT I
