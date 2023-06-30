@@ -1,4 +1,4 @@
-# Numerical_Computation_Course
+# Numerical Computation Course
 I did a few projects for the Numerical Computations course using Fortran. Project’s title: Formula modelling and solving relevant issues.
 
 The projects' source code are provided and the subject are: 
